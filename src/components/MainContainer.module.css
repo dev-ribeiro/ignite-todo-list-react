@@ -1,0 +1,86 @@
+.container {
+    margin: auto;
+    max-width: 30rem;
+    box-sizing: content-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.todoCreator {
+    margin: -1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.todoCreator>input {
+
+    height: 2rem;
+    width: 20rem;
+    padding: .5rem;
+    vertical-align: middle;
+    resize: none;
+    background-color: var(--gray-500);
+    border: none;
+    border-radius: 8px;
+}
+
+.todoCreator>input::-webkit-input-placeholder {
+    vertical-align: middle;
+}
+
+.todoCreator>button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 5.625rem;
+    background-color: var(--blue-dark);
+    color: white;
+    border: none;
+    border-radius: 8px;
+}
+
+.todoList {
+    margin: 4rem 0;
+    width: 26.5rem;
+}
+
+.todoList .controller {
+    padding: 0;
+    padding-bottom: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--gray-400);
+}
+
+.todoList .controller * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    border: none;
+    background: none;
+}
+
+
+.todoList .controller button:first-child {
+    color: var(--blue);
+    font-size: 12px;
+}
+
+.todoList .controller button:last-child {
+    color: var(--purple);
+    font-size: 12px;
+}
+
+.todoList .controller .counterTodo {
+    width: .5rem;
+    height: .5rem;
+    padding: .35rem;
+    color: var(--white);
+    background-color: var(--gray-400);
+    border-radius: 50%;
+}
