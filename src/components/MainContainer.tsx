@@ -1,8 +1,11 @@
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import { BsPlusCircle } from "react-icons/bs";
 import styles from "./MainContainer.module.css";
+import { ShowTodos } from "./ShowTodos";
 
 export function MainContainer() {
+    const [todos, setTodos] = useState([]);
+
     const handleCreateTodo = (event: FormEvent) => {
         event.preventDefault();
         console.log("Teste")
@@ -30,6 +33,10 @@ export function MainContainer() {
                 </section>
                 <section className={styles.list}></section>
             </article>
+            <ShowTodos 
+                hasTodos={todos.length === 0 ? false : true}
+                todosList={todos}
+            />
         </main>
     )
 }
