@@ -58,7 +58,7 @@
 
 .todoList .controller * {
     display: flex;
-    justify-content: center;
+    justify-content: ce;
     align-items: center;
     gap: 5px;
     border: none;
