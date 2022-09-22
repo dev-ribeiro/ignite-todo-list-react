@@ -24,9 +24,12 @@
     color: var(--gray-300);
 }
 
-
 .done button svg{
     color: var(--purple-dark);
+}
+
+.done > span {
+    text-decoration: line-through;
 }
 
 .unDone button svg{
