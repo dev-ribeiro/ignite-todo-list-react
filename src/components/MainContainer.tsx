@@ -5,36 +5,65 @@ import styles from "./MainContainer.module.css";
 import { ShowTodos } from "./ShowTodos";
 
 interface INewContent {
-    id:string;
-    content:string;
-    done:boolean
+    id: string;
+    content: string;
+    done: boolean;
+    deleted: boolean
 };
 
 export function MainContainer() {
+    let id = uuidv4();
     const [todos, setTodos] = useState<INewContent[]>([]);
     const [newContent, setNewContent] = useState<INewContent>({
-        id:"",
-        content:"",
-        done:false
+        id: "",
+        content: "",
+        done: false,
+        deleted: false
     });
 
     const handleInputText = (event: ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
-        let id = uuidv4();
         setNewContent({
-            id,
+            ...newContent,
             content: event.target.value,
-            done:false
+            done: false,
+            deleted: false
         });
     };
 
     const handleCreateTodo = (event: FormEvent) => {
         event.preventDefault();
-        setTodos([...todos, newContent]);
+        setTodos([...todos, { ...newContent, id: id }]);
+        setNewContent({
+            id: "",
+            content: "",
+            done: false,
+            deleted: false
+        })
     };
 
-    console.log(todos);
-    console.log(newContent);
+    const handleTodoDone = (id: string): void => {
+        let updateState = todos.map(todo => {
+            if (todo.id === id) {
+                if (todo.done === false) {
+                    return { ...todo, done: true }
+                }
+                if (todo.done === true) {
+                    return { ...todo, done: false }
+                }
+            }
+            return todo
+        });
+
+        setTodos(updateState)
+    };
+
+    const counterTodos = (condition: boolean): number => {
+        let filter = todos.filter(todo => {
+            return todo.done === condition
+        });
+        return filter.length
+    };
 
     return (
         <main className={styles.container}>
@@ -45,6 +74,7 @@ export function MainContainer() {
                 <input
                     type="text"
                     placeholder="Adicione uma nova tarefa"
+                    value={newContent.content}
                     onChange={handleInputText}
                 />
                 <button
@@ -59,11 +89,15 @@ export function MainContainer() {
                 <section className={styles.controller}>
                     <button>
                         <span>Tarefas criadas</span>
-                        <span className={styles.counterTodo}>0</span>
+                        <span className={styles.counterTodo}>
+                            {counterTodos(false)}
+                        </span>
                     </button>
                     <button>
                         <span>Concluídas</span>
-                        <span className={styles.counterTodo}>0</span>
+                        <span className={styles.counterTodo}>
+                            {counterTodos(true)}
+                        </span>
                     </button>
                 </section>
                 <section className={styles.list}></section>
@@ -71,6 +105,7 @@ export function MainContainer() {
             <ShowTodos
                 hasTodos={todos.length === 0 ? false : true}
                 todoList={todos}
+                handleTodoDone={handleTodoDone}
             />
         </main>
     )

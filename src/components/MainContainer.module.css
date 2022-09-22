@@ -8,19 +8,19 @@
 }
 
 .todoCreator {
-    margin: -1.5rem;
+    margin-top: -2rem;
+    margin-bottom: 3rem;
     display: flex;
     justify-content: center;
     gap: 5px;
 }
 
 .todoCreator>input {
-
     height: 2rem;
     width: 20rem;
     padding: .5rem;
     vertical-align: middle;
-    resize: none;
+    color: var(--gray-100);
     background-color: var(--gray-500);
     border: none;
     border-radius: 8px;
@@ -43,7 +43,7 @@
 }
 
 .todoList {
-    margin: 4rem 0;
+    /* margin-top: 2.5rem; */
     width: 26.5rem;
 }
 
@@ -58,7 +58,7 @@
 
 .todoList .controller * {
     display: flex;
-    justify-content: ce;
+    justify-content: center;
     align-items: center;
     gap: 5px;
     border: none;

@@ -1,18 +1,21 @@
 import { HiOutlineClipboardList } from "react-icons/hi";
 import styles from "./ShowTodos.module.css";
+import { TodoCard } from "./TodoCard";
 
 interface ITodo {
-    id:string;
-    content:string;
-    done:boolean
+    id: string;
+    content: string;
+    done: boolean;
+    deleted: boolean
 };
 
 interface IPropsShowTodos {
-    hasTodos:boolean;
-    todoList:ITodo[]
-}
+    hasTodos: boolean;
+    todoList: ITodo[];
+    handleTodoDone: (id:string) => void
+};
 
-export function ShowTodos({hasTodos, todoList}:IPropsShowTodos): JSX.Element {
+export function ShowTodos({ hasTodos, todoList, handleTodoDone}: IPropsShowTodos): JSX.Element {
     if (hasTodos === false) {
         return (
             <section className={styles.notShowTodos}>
@@ -25,14 +28,11 @@ export function ShowTodos({hasTodos, todoList}:IPropsShowTodos): JSX.Element {
         return (
             <section className={styles.showTodos}>
                 {todoList.map(todo => {
-                    return(
-                        <div 
-                            key={todo.id}
-                            className={todo.done === false ? styles.unDone : styles.done}
-                        >
-                            {todo.content}
-                        </div>
-                    )
+                    return <TodoCard 
+                        key={todo.id} 
+                        todo={todo}
+                        handleTodoDone={handleTodoDone}
+                        />
                 })}
             </section>
         )
