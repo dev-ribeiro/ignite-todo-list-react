@@ -58,9 +58,22 @@ export function MainContainer() {
         setTodos(updateState)
     };
 
+    const handleDeletedTodo = (id: string): void => {
+        let updateState = todos.map(todo => {
+            if (todo.id === id) {
+                return { ...todo, deleted: true }
+            }
+            return todo
+        });
+
+        setTodos(updateState)
+    };
+
     const counterTodos = (condition: boolean): number => {
         let filter = todos.filter(todo => {
-            return todo.done === condition
+            if (todo.deleted != true) {
+                return todo.done === condition
+            }
         });
         return filter.length
     };
@@ -106,6 +119,7 @@ export function MainContainer() {
                 hasTodos={todos.length === 0 ? false : true}
                 todoList={todos}
                 handleTodoDone={handleTodoDone}
+                handleDeletedTodo={handleDeletedTodo}
             />
         </main>
     )

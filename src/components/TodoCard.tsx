@@ -12,14 +12,22 @@ interface ITodo {
 interface IPropsTodoCard {
     key: string;
     todo: ITodo;
-    handleTodoDone: (id: string) => void
+    handleTodoDone: (id: string) => void;
+    handleDeletedTodo: (id: string) => void;
 }
 
-export function TodoCard({ todo, handleTodoDone }: IPropsTodoCard) {
+export function TodoCard({ todo, handleTodoDone, handleDeletedTodo }: IPropsTodoCard) {
     const onHandleDoneTodo = (event: MouseEvent<HTMLButtonElement>): void => {
         let id = event.currentTarget.parentElement?.id;
-        if(typeof id != "undefined") {
+        if (typeof id != "undefined") {
             handleTodoDone(id)
+        }
+    };
+
+    const onHandleDeletedTodo = (event: MouseEvent<HTMLButtonElement>) => {
+        let id = event.currentTarget.parentElement?.id;
+        if (typeof id != "undefined") {
+            handleDeletedTodo(id)
         }
     };
 
@@ -31,6 +39,7 @@ export function TodoCard({ todo, handleTodoDone }: IPropsTodoCard) {
                 : `${styles.card} ${styles.done}`}
         >
             <button
+                className={styles.doneButton}
                 onClick={onHandleDoneTodo}
             >
                 {todo.done === false
@@ -39,7 +48,12 @@ export function TodoCard({ todo, handleTodoDone }: IPropsTodoCard) {
                 }
             </button>
             <span>{todo.content}</span>
-            <MdOutlineDeleteForever />
+            <button
+                className={styles.deleteButton}
+                onClick={onHandleDeletedTodo}
+            >
+                <MdOutlineDeleteForever />
+            </button>
         </div>
     )
 }

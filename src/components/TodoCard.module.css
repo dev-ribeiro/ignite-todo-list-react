@@ -15,14 +15,15 @@
     border: none;
 }
 
-.card > svg {
-    color: var(--gray-300);
-}
-
 .card > span{
     text-align: start;
     color: var(--gray-100);
 }
+
+.card > svg {
+    color: var(--gray-300);
+}
+
 
 .done button svg{
     color: var(--purple-dark);
@@ -30,4 +31,9 @@
 
 .unDone button svg{
     color: var(--blue);
+}
+
+.deleteButton svg:hover{
+    color: var(--danger);
+    transition: .3s;
 }

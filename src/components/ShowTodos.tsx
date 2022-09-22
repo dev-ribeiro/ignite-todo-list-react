@@ -12,10 +12,11 @@ interface ITodo {
 interface IPropsShowTodos {
     hasTodos: boolean;
     todoList: ITodo[];
-    handleTodoDone: (id:string) => void
+    handleTodoDone: (id: string) => void;
+    handleDeletedTodo: (id: string) => void;
 };
 
-export function ShowTodos({ hasTodos, todoList, handleTodoDone}: IPropsShowTodos): JSX.Element {
+export function ShowTodos({ hasTodos, todoList, handleTodoDone,handleDeletedTodo }: IPropsShowTodos): JSX.Element {
     if (hasTodos === false) {
         return (
             <section className={styles.notShowTodos}>
@@ -28,11 +29,15 @@ export function ShowTodos({ hasTodos, todoList, handleTodoDone}: IPropsShowTodos
         return (
             <section className={styles.showTodos}>
                 {todoList.map(todo => {
-                    return <TodoCard 
-                        key={todo.id} 
-                        todo={todo}
-                        handleTodoDone={handleTodoDone}
-                        />
+                    if (todo.deleted != true) {
+                        return (
+                            <TodoCard
+                                key={todo.id}
+                                todo={todo}
+                                handleTodoDone={handleTodoDone}
+                                handleDeletedTodo={handleDeletedTodo}
+                            />)
+                    }
                 })}
             </section>
         )
