@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { BsPlusCircle } from "react-icons/bs";
 import styles from "./MainContainer.module.css";
 import { ShowTodos } from "./ShowTodos";
@@ -12,7 +12,6 @@ interface INewContent {
 };
 
 export function MainContainer() {
-    let id = uuidv4();
     const [todos, setTodos] = useState<INewContent[]>([]);
     const [newContent, setNewContent] = useState<INewContent>({
         id: "",
@@ -24,7 +23,7 @@ export function MainContainer() {
     const handleInputText = (event: ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
         setNewContent({
-            ...newContent,
+            id: uuidv4(),
             content: event.target.value,
             done: false,
             deleted: false
@@ -33,7 +32,9 @@ export function MainContainer() {
 
     const handleCreateTodo = (event: FormEvent) => {
         event.preventDefault();
-        setTodos([...todos, { ...newContent, id: id }]);
+        setTodos(state => {
+            return [...state, newContent]
+        });
         setNewContent({
             id: "",
             content: "",
@@ -69,14 +70,14 @@ export function MainContainer() {
         setTodos(updateState)
     };
 
-    const counterTodos = (condition: boolean): number => {
-        let filter = todos.filter(todo => {
-            if (todo.deleted != true) {
-                return todo.done === condition
-            }
-        });
-        return filter.length
-    };
+    const counterTodos = todos.filter(todo => {
+        return todo.deleted === false
+    });
+
+
+    const doneTodos = todos.filter(todo => {
+        return todo.done === true
+    })
 
     return (
         <main className={styles.container}>
@@ -103,20 +104,20 @@ export function MainContainer() {
                     <button>
                         <span>Tarefas criadas</span>
                         <span className={styles.counterTodo}>
-                            {counterTodos(false)}
+                            {counterTodos.length}
                         </span>
                     </button>
                     <button>
                         <span>Concluídas</span>
                         <span className={styles.counterTodo}>
-                            {counterTodos(true)}
+                            {doneTodos.length}
                         </span>
                     </button>
                 </section>
                 <section className={styles.list}></section>
             </article>
             <ShowTodos
-                hasTodos={todos.length === 0 ? false : true}
+                hasTodos={counterTodos.length === 0 ? false : true}
                 todoList={todos}
                 handleTodoDone={handleTodoDone}
                 handleDeletedTodo={handleDeletedTodo}

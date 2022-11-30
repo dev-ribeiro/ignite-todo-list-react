@@ -16,7 +16,9 @@ interface IPropsShowTodos {
     handleDeletedTodo: (id: string) => void;
 };
 
-export function ShowTodos({ hasTodos, todoList, handleTodoDone,handleDeletedTodo }: IPropsShowTodos): JSX.Element {
+export function ShowTodos({ hasTodos, todoList, handleTodoDone, handleDeletedTodo }: IPropsShowTodos): JSX.Element {
+    console.log(todoList)
+
     if (hasTodos === false) {
         return (
             <section className={styles.notShowTodos}>
@@ -25,21 +27,21 @@ export function ShowTodos({ hasTodos, todoList, handleTodoDone,handleDeletedTodo
                 <span>Crie tarefas e organize suas ideias</span>
             </section>
         )
-    } else {
-        return (
-            <section className={styles.showTodos}>
-                {todoList.map(todo => {
-                    if (todo.deleted != true) {
-                        return (
-                            <TodoCard
-                                key={todo.id}
-                                todo={todo}
-                                handleTodoDone={handleTodoDone}
-                                handleDeletedTodo={handleDeletedTodo}
-                            />)
-                    }
-                })}
-            </section>
-        )
     }
+
+    return (
+        <section className={styles.showTodos}>
+            {todoList.map(todo => {
+                if (todo.deleted === false) {
+                    return (
+                        <TodoCard
+                            key={todo.id}
+                            todo={todo}
+                            handleTodoDone={handleTodoDone}
+                            handleDeletedTodo={handleDeletedTodo}
+                        />)
+                }
+            })}
+        </section>
+    )
 }

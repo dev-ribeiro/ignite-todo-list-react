@@ -15,7 +15,7 @@
     gap: 5px;
 }
 
-.todoCreator>input {
+.todoCreator > input {
     height: 2rem;
     width: 20rem;
     padding: .5rem;
@@ -43,7 +43,6 @@
 }
 
 .todoList {
-    /* margin-top: 2.5rem; */
     width: 26.5rem;
 }
 
@@ -83,4 +82,18 @@
     color: var(--white);
     background-color: var(--gray-400);
     border-radius: 50%;
+}
+
+@media (max-width: 425px) {
+    .container {
+        max-width: 100%;
+    }
+
+    .todoCreator > input {
+        width: 100%;
+    }
+
+    .todoList {
+        width: 80%;
+    }
 }
