@@ -17,7 +17,6 @@ interface IPropsShowTodos {
 };
 
 export function ShowTodos({ hasTodos, todoList, handleTodoDone, handleDeletedTodo }: IPropsShowTodos): JSX.Element {
-    console.log(todoList)
 
     if (hasTodos === false) {
         return (
